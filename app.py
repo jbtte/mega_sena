@@ -1,6 +1,5 @@
 from flask import Flask, render_template, jsonify, request
 from random import sample
-from flask_bootstrap import Bootstrap
 
 app = Flask(__name__)
 bootstrap = Bootstrap(app)

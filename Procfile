@@ -1,1 +1,1 @@
-web: gunicorn mega:app
+web: gunicorn mega:app.py
