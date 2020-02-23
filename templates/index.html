@@ -1,52 +1,57 @@
-{% extends 'bootstrap/base.html' %}
+<!DOCTYPE html>
+<html lang="pt">
+  <head>
+    <meta charset="UTF-8">
+    <title> Jogos da Mega </title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script type=text/javascript>
+    $(document).ready(function() {
+           $('#retrieve').click(function(){
+               var num_jogos = $('#num_jogos').val();
+               $.ajax({
+               url: "/gerar",
+               type: "get",
+               data: {num_jogos: num_jogos},
+               success: function(response) {
+                 var todos_jogos="";
+                 for (var i = 0; i<response.jogos.length; i++){
+                   var temp = response.jogos[i] + "<br>";
+                   todos_jogos = todos_jogos.concat(temp)
+                 };
 
-{% block title %} Jogos da Mega  {% endblock %}
+               $('#result').html(todos_jogos)
+              },
+              error: function(xhr) {
+                //Do Something to handle error
+             }
+             });
+           });
+        });
+    </script>
+  </head>
+  <body>
+    <div class="card">
+      <div class="row justify-content-md-center">
+        <div class="col-5">
+          <h1 class="card-header text-center "> Jogos da Mega </h1>
+          <div class="card-body">
+            <p class="card-text text-center ">
+              <input type="integer" id="num_jogos" name="num_jogos" placeholder="Número de Jogos">
+              <button type='button' id ='retrieve' class="btn btn-success">Gerar</button>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="row justify-content-md-center">
+        <div class="col-5">
+          <p class="card-text text-center "id="result"><p>
+        </div>
+      </div>
+    </div>
+  </body>
 
-{% block head %}
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-
-{% endblock %}
-
-
-{% block content %}
-<div class="card">
-  <h1 class="card-header"> Jogos da Mega </h1>
-  <div class="card-body">
-    <p class="card-text">
-      <input type="integer" id="num_jogos" name="num_jogos" placeholder="Numero de Jogos">
-      <button type='button' id ='retrieve' class="btn btn-success">Gerar</button>
-    </p>
-  </div>
-</div>
-<hr>
-<div id="result"></div>
-{% endblock %}
-
-{% block scripts %}
-{{super()}}
-<script type=text/javascript>
-$(document).ready(function() {
-       $('#retrieve').click(function(){
-           var num_jogos = $('#num_jogos').val();
-           $.ajax({
-           url: "/gerar",
-           type: "get",
-           data: {num_jogos: num_jogos},
-           success: function(response) {
-             var todos_jogos="";
-             for (var i = 0; i<response.jogos.length; i++){
-               var temp = response.jogos[i] + "<br>";
-               todos_jogos = todos_jogos.concat(temp)
-             };
-
-           $('#result').html(todos_jogos)
-          },
-          error: function(xhr) {
-            //Do Something to handle error
-         }
-         });
-       });
-    });
-</script>
-{% endblock %}
+</html>
