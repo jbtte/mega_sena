@@ -14,11 +14,15 @@
                type: "get",
                data: {num_jogos: num_jogos},
                success: function(response) {
-                 var todos_jogos="";
+                 var todos_jogos="<tbody class='text-center'>";
                  for (var i = 0; i<response.jogos.length; i++){
-                   var temp = response.jogos[i] + "<br>";
+                   var temp = "<tr><td>" + response.jogos[i];
+                   temp = temp + "</td></tr>";
                    todos_jogos = todos_jogos.concat(temp)
                  };
+
+                 todos_jogos = todos_jogos + "</tbody>";
+                 console.log(typeof todos_jogos);
 
                $('#result').html(todos_jogos)
               },
@@ -33,12 +37,12 @@
   <body>
     <div class="card">
       <div class="row justify-content-md-center">
-        <div class="col-5">
+        <div class="col-4">
           <h1 class="card-header text-center "> Jogos da Mega </h1>
           <div class="card-body">
             <p class="card-text text-center ">
-              <input type="integer" id="num_jogos" name="num_jogos" placeholder="Número de Jogos">
-              <button type='button' id ='retrieve' class="btn btn-success">Gerar</button>
+              <input type="integer" id="num_jogos" name="num_jogos" placeholder="Jogos" size="6"  height="96" >
+              <button type='button' id ='retrieve' class="btn btn-dark btn-sm">Gerar</button>
             </p>
           </div>
         </div>
@@ -46,8 +50,8 @@
     </div>
     <div class="card">
       <div class="row justify-content-md-center">
-        <div class="col-5">
-          <p class="card-text text-center "id="result"><p>
+        <div class="col-3">
+          <table class="table table-sm table-striped" id="result"></table>
         </div>
       </div>
     </div>
